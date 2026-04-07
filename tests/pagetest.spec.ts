@@ -30,7 +30,7 @@ test('Invalid Password', async ({ page }) => {
 
 });
 
-test('Correct Login}', async ({ page }) => {
+test('Correct Login', async ({ page }) => {
    await page.goto("https://the-internet.herokuapp.com/login");
 
   // Fill in invalid username and password

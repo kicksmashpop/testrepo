@@ -10,16 +10,20 @@ await page.close();
 });
 
 test('Add To Cart', async ({ page }) => {
-    await page.goto("https://coffee-cart.app");
+   await page.goto("https://coffee-cart.app");
 
-  // Fill in invalid username and password
-await page.getByRole('link', { name: 'Menu page' }).click();
-await page.getByRole('listitem').filter({ hasText: 'cart (0)' }).isVisible();
-await page.locator('[data-test="Espresso"]').click();
+  // Add Espresso to cart
+  await page.getByRole('link', { name: 'Menu page' }).click();
+  await page.getByRole('listitem').filter({ hasText: 'cart (0)' }).isVisible();
+  await page.locator('[data-test="Espresso"]').click();
 
-  // Expects page to flash an error
-await expect(page.getByRole('listitem').filter({ hasText: 'cart (1)' })).toBeVisible(); 
-await page.close();
+
+
+  // Cart count + 1; Espresso is in cart
+  await expect(page.getByRole('listitem').filter({ hasText: 'cart (1)' })).toBeVisible(); 
+  await page.getByRole('listitem').filter({ hasText: 'cart (1)' }).click();
+  await expect(page.getByText('Espresso$10.00 x 1+-$10.00x')).toBeVisible();
+  await page.close();
 
 });
 
